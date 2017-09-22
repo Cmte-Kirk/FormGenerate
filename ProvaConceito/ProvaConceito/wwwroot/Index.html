@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="scripts/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <script>
+        $(document).ready(function () {
+        });
+        function chamarTela(className) {
+            $.ajax({
+                type: "GET",
+                url: "/api/values/" + className,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    //alert(JSON.stringify(data));
+                    $("#content").html('');
+                    var DIV = '';
+                    var html = "";
+                    $.each(data, function (i, item) {
+                        if (item.typeName == "int") {
+                            html += '<label for="' + i + '">' + item.name + '</label>';
+                            html += '<input type="text" id="' + i + '">';
+                        }
+                        if (item.typeName.match("^varchar")) {
+                            re = /\((.*)\)/;
+                            var ml = item.typeName.match(re)[1];
+                            html += '<label for="' + i + '">' + item.name + '</label>';
+                            html += '<input type="text" id="' + i + '" maxlength="' + ml + '">';
+                        }
+                        if (item.typeName == "bit") {
+                            html += '<label for="' + i + '">' + item.name + '</label>';
+                            html += '<input type="checkbox" id="' + i + '">';
+                        }
+                        if (item.typeName.match("^enum")) {
+                            html += '<label for="' + i + '">' + item.name + '</label>';
+                            html += '<select id="' + i + '">';
+                            var ml = item.typeName.match(re)[1].split(",");
+                            for (var j = 0; j < ml.length; j++) {
+                                html += '<option value="' + ml[j] + '">' + ml[j] + '</option>';
+                            }
+                            html += '</select>';
+                        }
+                    }); //End of foreach Loop
+                    $('#content').html(html);
+                    console.log(data);
+                }, //End of AJAX Success function
+
+                failure: function (data) {
+                    alert(data.responseText);
+                }, //End of AJAX failure function
+                error: function (data) {
+                    alert(data.responseText);
+                } //End of AJAX error function
+            });
+        }
+
+    </script>
+    <input type="button" id="abrirTela" value="Cliente" onclick="chamarTela('Cliente')" />
+    <div id="content">
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,4 @@
+<label [for]="id">{{label}}</label>
+<select [(ngModel)]="valor" [name]="id" [id]="id">
+    <option *ngFor="let item of itens" [ngValue]="item.id" >{{item.texto}}</option>
+</select>

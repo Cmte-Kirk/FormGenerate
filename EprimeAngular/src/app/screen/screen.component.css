@@ -1,0 +1,19 @@
+#menu {
+    float:left;
+    width:25%;
+    background:#bfb;
+    
+}
+#form {
+    float:right;
+    width:74%;
+    height: 100%;
+    border-left-style: solid;
+    border-left-width: 2px;
+    border-left-color: #636262;
+}
+#conteudo {
+    margin-left: 5px;
+    text-align: left;
+    width:auto;
+}

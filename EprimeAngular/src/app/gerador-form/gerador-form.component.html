@@ -1,0 +1,19 @@
+
+<form [formGroup]="myForm" #container>
+
+<div id="actions">
+    <control *ngFor="let item of actionElements">
+        <ng-container *view="item.view"></ng-container>
+    </control>
+</div>
+<hr>
+<p> Gerador de Form </p>
+
+<div id="layout">
+  <control *ngFor="let item of formElements">
+    <ng-container *view="item.view"></ng-container>
+  </control>
+</div>
+
+</form>
+
